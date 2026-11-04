@@ -7,6 +7,19 @@ const {logout} = require("./controllers/Logout");
 const cors = require("cors");
 const express = require("express");
 const app = express();
+const userRouter = require("./routes/user");
+
+mongoose
+  .connect(dbUrl)
+  .then(() => {
+    console.log("db connect successfull");
+  })
+  .catch((error) => {
+    console.log("db Connection fail");
+  });
+
+
+
 
 
 app.use(cors({
@@ -19,18 +32,15 @@ app.use(express.json());
 
 const PORT = process.env.PORT;
 
-mongoose
-  .connect(dbUrl)
-  .then(() => {
-    console.log("db connect successfull");
-  })
-  .catch((error) => {
-    console.log("db Connection fail");
-  });
+
 
 app.get("/", (req, res) => {
   res.send("welcome to my server");
 });
+
+app.use("/users", userRouter);
+
+
 
 app.post("/signup", signup);
 app.post("/login", login);
