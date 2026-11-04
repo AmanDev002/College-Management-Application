@@ -1,16 +1,18 @@
 import React, { useState } from "react";
-
+import axios from "axios";
+import GlobalContext from "../../Context/GlobalContext";
+import { useContext } from "react";
 
 const UserInfo = () => {
- 
+  const { navigate } = useContext(GlobalContext);
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
     fatherName: "",
-    dob: "",
+    dateOfBirth: "",
     email: "",
-    phone: "",
-    session: "",
+    mobileNumber: "",
+    academicSession: "",
     currentYear: "",
     collegeName: "",
   });
@@ -26,27 +28,39 @@ const UserInfo = () => {
     });
   }
 
-  function handleSubmit(event) {
-    event.preventDefault();
-    console.log(formData);
-    setFormData({
-      firstName: "",
-      lastName: "",
-      fatherName: "",
-      dob: "",
-      email: "",
-      phone: "",
-      session: "",
-      currentYear: "",
-      collegeName: "",
-    });
+  async function handleSubmit(event) {
+    try {
+      event.preventDefault();
+
+      const response = await axios.post(
+        "http://localhost:3000/users/formInfo",
+        formData,
+      );
+
+      if (response.status === 200) {
+        alert("Information Saved");
+        navigate("/");
+      }
+
+      // console.log(formData);
+      setFormData({
+        firstName: "",
+        lastName: "",
+        fatherName: "",
+        dateOfBirth: "",
+        email: "",
+        mobileNumber: "",
+        academicSession: "",
+        currentYear: "",
+        collegeName: "",
+      });
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   return (
     <div className="min-h-screen bg-slate-100 px-4 py-10">
-      
-      
-
       {/* Heading */}
       <div className="text-center mb-8">
         <h1 className="text-3xl md:text-4xl font-bold text-indigo-700">
@@ -118,7 +132,7 @@ const UserInfo = () => {
               </label>
               <input
                 type="date"
-                name="dob"
+                name="dateOfBirth"
                 value={formData.dob}
                 onChange={handleOnChange}
                 className="w-full border border-gray-300 rounded-lg p-3 outline-none focus:ring-2 focus:ring-indigo-500"
@@ -147,10 +161,12 @@ const UserInfo = () => {
               </label>
               <input
                 type="tel"
-                name="phone"
+                name="mobileNumber"
                 value={formData.phone}
                 onChange={handleOnChange}
                 maxLength={10}
+                minLength={10}
+                inputMode="numeric"
                 pattern="[0-9]{10}"
                 placeholder="Enter 10-digit mobile number"
                 className="w-full border border-gray-300 rounded-lg p-3 outline-none focus:ring-2 focus:ring-indigo-500"
@@ -171,7 +187,7 @@ const UserInfo = () => {
               </label>
               <input
                 type="text"
-                name="session"
+                name="academicSession"
                 value={formData.session}
                 onChange={handleOnChange}
                 placeholder="2024 - 2027"

@@ -2,7 +2,7 @@ import React from "react";
 import { useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
+
 import GlobalContext from "../Context/GlobalContext";
 import { useContext } from "react";
 
@@ -26,7 +26,7 @@ const Signup = () => {
   async function submitHandler() {
     try {
       const response = await axios.post(
-        "http://localhost:3000/signup",
+        "http://localhost:3000/users/signup",
         signupUser,
       );
 

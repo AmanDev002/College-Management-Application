@@ -14,7 +14,7 @@ const userSchema = new mongoose.Schema({
     required: true,
   },
   dateOfBirth: {
-    type: String,
+    type: Date,
     required: true,
   },
   email: {
@@ -22,7 +22,7 @@ const userSchema = new mongoose.Schema({
     required: true,
   },
   mobileNumber: {
-    type: Number,
+    type: String,
     required: true,
   },
   academicSession: {
@@ -30,7 +30,7 @@ const userSchema = new mongoose.Schema({
     required: true,
   },
   currentYear: {
-    type: Number,
+    type: String,
     required: true,
   },
   collegeName: {
@@ -40,5 +40,5 @@ const userSchema = new mongoose.Schema({
 });
 
 
-const User = mongoose.model("User", userSchema);
-module.exports = User;
+const UserInfo = mongoose.model("UserInfo", userSchema);
+module.exports = UserInfo;

@@ -27,7 +27,7 @@ const Login = () => {
   async function submitHandler() {
     try {
       const response = await axios.post(
-        "http://localhost:3000/login",
+        "http://localhost:3000/users/login",
         loginUser,
         {
           withCredentials: true,

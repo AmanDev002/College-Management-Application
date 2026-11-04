@@ -1,11 +1,12 @@
-const signupModel = require("../models/signupModel");
+const Signup = require("../models/signupModel");
 
 const bcrypt = require("bcrypt");
+
 exports.signup = async (req, res) => {
   try {
     const { username, email, password } = req.body;
 
-    const checkUser = await signupModel.findOne({ email });
+    const checkUser = await Signup.findOne({ email });
 
     if (checkUser) {
       return res.send("user already signup");
@@ -13,7 +14,7 @@ exports.signup = async (req, res) => {
 
     let hashPassword = await bcrypt.hash(password, 10);
 
-    let newUser = new signupModel({
+    let newUser = new Signup({
       username,
       email,
       password: hashPassword,
