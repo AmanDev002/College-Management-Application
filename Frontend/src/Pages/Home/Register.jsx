@@ -13,7 +13,7 @@ const Register = () => {
         <button className="bg-green-500 w-40 h-15 rounded-2xl text-white text-lg text-center cursor-pointer">
           <Link to="/signup">
             {" "}
-            Register <i class="fa-regular fa-hand-point-up"></i>
+            Register <i className="fa-regular fa-hand-point-up"></i>
           </Link>
         </button>
       )}
